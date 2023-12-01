@@ -1,22 +1,61 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { routes } from '../../routes';
-import { addContact, deleteContact } from '../../actions/contactAction';
-import { useState } from 'react';
-import { useFormik } from 'formik';
-import contactValidateSchema from '../../masterData/contactValidateSchema'; 
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { routes } from "../../routes";
+import { addContact, deleteContact } from "../../actions/contactAction";
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import contactValidateSchema from "../../masterData/contactValidateSchema";
 
 function Home() {
   const contacts = useSelector((state) => state.contacts);
+  const [showContacts, setShowContacts] = useState(contacts);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const q = queryParams.get("q");
+  console.log(q);
+
+  useEffect(() => {
+    const searchContacts = (searchTerm, contacts) => {
+      if (!searchTerm) {
+        return contacts;
+      }
+
+      const searchTermLower = searchTerm.toLowerCase();
+
+      const filteredContacts = contacts.filter((contact) => {
+        for (const key in contact) {
+          if (key !== "id") {
+            const valueLower = contact[key].toString().toLowerCase();
+            if (valueLower.includes(searchTermLower)) {
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+
+      if (filteredContacts.length === 0) {
+        alert("Not found!");
+        return contacts;
+      }
+
+      return filteredContacts;
+    };
+
+    const filteredContacts = searchContacts(q, contacts);
+    setShowContacts(filteredContacts);
+  }, [q, contacts]);
+
   const dispatch = useDispatch();
 
   const [showAddModel, setShowAddModel] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      email: '',
-      phone: '',
+      name: "",
+      email: "",
+      phone: "",
     },
     validationSchema: contactValidateSchema,
     onSubmit: (values, { resetForm }) => {
@@ -28,7 +67,7 @@ function Home() {
       dispatch(addContact({ ...values, id: parseInt(id) }));
       setShowAddModel(false);
       resetForm();
-      alert('Success!');
+      alert("Success!");
     },
   });
 
@@ -40,7 +79,7 @@ function Home() {
     <div className="home text">
       <div className="contact-table-container">
         <div className="flex-center padding-v-4">
-          <h2>Contact Table</h2>{' '}
+          <h2>Contact Table</h2>{" "}
           <button
             className="medium-btn save-btn"
             onClick={() => setShowAddModel(true)}
@@ -58,7 +97,7 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            {contacts.map((contact) => (
+            {showContacts.map((contact) => (
               <tr key={contact.id}>
                 <td>{contact.name}</td>
                 <td>{contact.email}</td>
@@ -66,7 +105,7 @@ function Home() {
                 <td>
                   <div className="">
                     <Link
-                      to={routes.home + 'edit/' + contact.id}
+                      to={routes.home + "edit/" + contact.id}
                       className="btn btn-info"
                     >
                       Edit
@@ -147,7 +186,7 @@ function Home() {
                       Cancel
                     </button>
                   </div>
-                </form>{' '}
+                </form>{" "}
               </div>
             </div>
           </div>
