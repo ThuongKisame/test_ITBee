@@ -34,7 +34,7 @@ function Header() {
             {!darkMode?<MdSunny color="red" size={25} />: <IoMoon color="blue" size={25}  />}
           
         </div>
-        <div className="icon-wrap btn flex" onClick={handleToggleDropdown}>
+        <div className="icon-wrap hover flex" onClick={handleToggleDropdown}>
           <CgProfile size={25} />
           {showDropdown && (
             <div className="dropdown-content">

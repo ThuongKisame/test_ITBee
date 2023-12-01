@@ -27,15 +27,13 @@ const appReducer = (state = initialState, action) => {
           (contact) => contact.id !== action.payload
         ),
       };
-    case actionTypes.EDIT_CONTACT:
-      return {
-        ...state,
-        contacts: state.contacts.map((contact) =>
-          action.payload && contact.id === action.payload.id
-            ? action.payload
-            : contact
-        ),
-      };
+      case actionTypes.EDIT_CONTACT:
+        return {
+          ...state,
+          contacts: state.contacts.map((contact) =>
+            contact.id === action.payload.id ? action.payload : contact
+          ),
+        };
     case actionTypes.CHANGE_DARK_MODE:
       return {
         ...state,

@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { routes } from "../../routes";
 
 function Home() {
   const contacts = useSelector((state) => state.contacts);
+  // console.log(contacts)
 
   const handleDelete = (id) => {};
 
-  const handleEdit = (id) => {};
   return (
     <div className="home text" >
       <div className="contact-table-container">
@@ -26,18 +28,19 @@ function Home() {
                 <td>{contact.email}</td>
                 <td>{contact.phone}</td>
                 <td>
-                  <button
-                    className="btn btn-info"
-                    onClick={() => handleEdit(contact.id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(contact.id)}
-                  >
-                    Delete
-                  </button>
+                 <div className="">
+                    <Link  to={routes.home+'edit/'+contact.id}
+                      className="btn btn-info"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(contact.id)}
+                    >
+                      Delete
+                    </button>
+                 </div>
                 </td>
               </tr>
             ))}
