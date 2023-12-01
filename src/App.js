@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import DefaultLayout from './layout/DefaultLayout';
+import { useSelector } from 'react-redux';
 
 
 function App() {
-  let classes='dark'
+  let darkMode=useSelector((state)=>state.darkMode)
   return (
     <Router>
-    <div className={classes}>
+    <div className={darkMode?'dark':''}>
         <Routes>
             {publicRoutes.map((route, index) => {
                 const Page = route.component;
-                console.log(Page)
                 const Layout = route.Layout || DefaultLayout;
                 return (
                     <Route
