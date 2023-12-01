@@ -85,8 +85,9 @@ body {
   cursor: pointer;
 }
 .btn {
-  padding: 6px 16px;
+  padding: 4px 16px;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 .btn + .btn {
@@ -217,12 +218,9 @@ a {
   color: #fff;
   background-color: #5bc0de;
   border: 1px solid #46b8da;
-  height: 32px;
 }
 
 .btn-danger {
-  height: 32px;
-
   color: #fff;
   background-color: #d9534f;
   border: 1px solid #d43f3a;
@@ -273,7 +271,4 @@ a {
     background-color:var(--light-100);
     width: 100vw;
     height: 100vh;
-}
-.model-wrap{
-
 }
