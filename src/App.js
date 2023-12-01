@@ -4,13 +4,14 @@ import DefaultLayout from './layout/DefaultLayout';
 
 
 function App() {
-  let classes=''
+  let classes='dark'
   return (
     <Router>
     <div className={classes}>
         <Routes>
             {publicRoutes.map((route, index) => {
                 const Page = route.component;
+                console.log(Page)
                 const Layout = route.Layout || DefaultLayout;
                 return (
                     <Route

@@ -32,6 +32,7 @@
 
 html {
     font-size: 62.5%;
+
 }
 
 html ::-webkit-scrollbar {
@@ -76,4 +77,60 @@ body {
 a:hover,
 button:hover {
     opacity: 0.7;
+}
+
+/* header */
+.header{
+    height: var(--header-height);
+    background-color: var(--light-100);
+    color: var(--light-700);
+
+}
+
+.flex-center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.p-h-4{
+    padding: 0 4rem ;
+}
+
+.input-search{
+    padding: 1rem 2rem;
+    width: 400px;
+    background-color: var(--light-300);
+    border-radius: 4px;
+}
+
+.icon-wrap{
+    padding: 8px;
+    position: relative;
+}
+
+.dropdown-content{
+    position: absolute;
+    background-color: var(--light-300);
+    bottom: -120px;
+    left: -75px;
+    width: 150px;
+    padding: 16px 6px;
+    border-radius: 4px;
+}
+
+.dropdown-content div{
+    padding:  8px 8px;
+
+    
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+
+}
+
+.dropdown-content div:hover{
+    background-color: var(--light-500);
 }
