@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;1,500;1,600&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+:root {
+    --primaryColor: #fe2c55;
+    --grayColor: #f8f8f8;
+    --light-100: #fff;
+    --light-300: #f1f1f2;
+    --light-500: #eaeaeb;
+    --light-700: #99999d;
+    --light-900: #2f2f2f;
+    --light-1000: black;
+    --light-gray: #fff;
+
+    --header-height: 60px;
+}
+
+.dark {
+    --light-100: black;
+    --light-300: #2f2f2f;
+    --light-500: #99999d;
+    --light-700: #eaeaeb;
+    --light-900: #f1f1f2;
+    --light-1000: white;
+    --light-gray: #2f2f2f;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+html ::-webkit-scrollbar {
+    border-radius: 0px;
+    width: 8px;
+}
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--light-700);
+}
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--light-700);
+}
+
+html ::-webkit-scrollbar-track {
+    border-radius: 0px;
+    background-color: var(--light-500);
+}
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: var(--light-500);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn,
+a:hover,
+button:hover {
+    opacity: 0.7;
+}
