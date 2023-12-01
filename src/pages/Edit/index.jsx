@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { editContact } from "../../actions/contactAction";
-import { routes } from "../../routes";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { editContact } from '../../actions/contactAction';
+import { useFormik } from 'formik';
+import contactValidateSchema from '../../masterData/contactValidateSchema';
+import { routes } from '../../routes';
 
 function Edit() {
   const { id } = useParams();
@@ -11,10 +13,7 @@ function Edit() {
 
   const selectedContact = useSelector((state) => {
     const contacts = state.contacts;
-
-    const contact = contacts.find((contact) => contact.id === parseInt(id));
-
-    return contact; 
+    return contacts.find((contact) => contact.id === parseInt(id));
   });
 
   useEffect(() => {
@@ -23,29 +22,24 @@ function Edit() {
     }
   }, [selectedContact, navigate]);
 
-  const [newContact, setNewContact] = useState({
-    name: selectedContact?.name || "",
-    email: selectedContact?.email || "",
-    phone: selectedContact?.phone || "",
+  const formik = useFormik({
+    initialValues: {
+      name: selectedContact?.name || '',
+      email: selectedContact?.email || '',
+      phone: selectedContact?.phone || '',
+    },
+    validationSchema: contactValidateSchema,
+    onSubmit: (values) => {
+      dispatch(editContact({ ...values, id: parseInt(id) }));
+      alert('Success!');
+      navigate(routes.home);
+    },
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewContact((prevContact) => ({
-      ...prevContact,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ ...newContact, id: id });
-    dispatch(editContact({ ...newContact, id: parseInt(id) }));
-  };
   return (
     <div className="edit">
       <div className="container text">
-        <form className="edit-form" onSubmit={handleSubmit}>
+        <form className="edit-form" onSubmit={formik.handleSubmit}>
           <div>
             <label>
               Name:
@@ -53,10 +47,13 @@ function Edit() {
                 className="input-text"
                 type="text"
                 name="name"
-                value={newContact.name}
-                onChange={handleInputChange}
+                value={formik.values.name}
+                onChange={formik.handleChange}
               />
             </label>
+            {formik.touched.name && formik.errors.name && (
+              <div className="error-message">{formik.errors.name}</div>
+            )}
           </div>
           <div>
             <label>
@@ -65,10 +62,13 @@ function Edit() {
                 className="input-text"
                 type="text"
                 name="email"
-                value={newContact.email}
-                onChange={handleInputChange}
+                value={formik.values.email}
+                onChange={formik.handleChange}
               />
             </label>
+            {formik.touched.email && formik.errors.email && (
+              <div className="error-message">{formik.errors.email}</div>
+            )}
           </div>
           <div>
             <label>
@@ -77,10 +77,13 @@ function Edit() {
                 className="input-text"
                 type="text"
                 name="phone"
-                value={newContact.phone}
-                onChange={handleInputChange}
+                value={formik.values.phone}
+                onChange={formik.handleChange}
               />
             </label>
+            {formik.touched.phone && formik.errors.phone && (
+              <div className="error-message">{formik.errors.phone}</div>
+            )}
           </div>
           <div className="flex-center">
             <button className="medium-btn save-btn" type="submit">
@@ -90,7 +93,7 @@ function Edit() {
               Cancel
             </Link>
           </div>
-        </form>{" "}
+        </form>{' '}
       </div>
     </div>
   );

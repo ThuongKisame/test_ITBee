@@ -6,9 +6,9 @@ const initialState = {
       id: 1,
       name: "Nhật Thương",
       email: "thuong@gmail.com",
-      phone: "111-456-7890",
+      phone: "0969834796",
     },
-    { id: 2, name: "Minh Tri", email: "tri@gmail.com", phone: "987-654-3210" },
+    { id: 2, name: "Minh Tri", email: "tri@gmail.com", phone: "0969834796" },
   ],
   darkMode: true,
 };
